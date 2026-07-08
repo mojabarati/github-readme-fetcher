@@ -44,8 +44,20 @@ const sanitizeSchema = {
   attributes: {
     ...defaultSchema.attributes,
     a: [...(defaultSchema.attributes?.a || []), "href", "title"],
-    img: [...(defaultSchema.attributes?.img || []), "src", "alt", "title", "width", "height"],
-    source: [...(defaultSchema.attributes?.source || []), "srcset", "media", "type"],
+    img: [
+      ...(defaultSchema.attributes?.img || []),
+      "src",
+      "alt",
+      "title",
+      "width",
+      "height",
+    ],
+    source: [
+      ...(defaultSchema.attributes?.source || []),
+      "srcset",
+      "media",
+      "type",
+    ],
     picture: [...(defaultSchema.attributes?.picture || []), "class"],
     div: [...(defaultSchema.attributes?.div || []), "align", "class"],
     p: [...(defaultSchema.attributes?.p || []), "align"],
@@ -120,7 +132,11 @@ const ReadmeFetcher = () => {
             <div className="result-header">
               <span>README Preview</span>
               <div className="result-toolbar">
-                <div className="mode-switch" role="tablist" aria-label="Preview mode">
+                <div
+                  className="mode-switch"
+                  role="tablist"
+                  aria-label="Preview mode"
+                >
                   <button
                     type="button"
                     className={`mode-button ${viewMode === "preview" ? "active" : ""}`}
@@ -136,7 +152,9 @@ const ReadmeFetcher = () => {
                     Raw
                   </button>
                 </div>
-                <span className={`status-pill ${hasContent ? "ready" : "idle"}`}>
+                <span
+                  className={`status-pill ${hasContent ? "ready" : "idle"}`}
+                >
                   {hasContent ? "Ready" : "Waiting"}
                 </span>
               </div>
@@ -148,16 +166,25 @@ const ReadmeFetcher = () => {
               </div>
             )}
 
-            {loading && <div className="preview-placeholder">Loading README...</div>}
+            {loading && (
+              <div className="preview-placeholder">Loading README...</div>
+            )}
 
             {!loading && hasContent && viewMode === "preview" && (
               <article className="markdown-body">
                 <ReactMarkdown
                   remarkPlugins={[remarkGfm]}
-                  rehypePlugins={[[rehypeRaw, { passThrough: [] }], [rehypeSanitize, sanitizeSchema]]}
+                  rehypePlugins={[
+                    [rehypeRaw, { passThrough: [] }],
+                    [rehypeSanitize, sanitizeSchema],
+                  ]}
                   components={{
-                    img: ({ node, ...props }) => <img {...props} loading="lazy" />,
-                    a: ({ node, ...props }) => <a {...props} target="_blank" rel="noreferrer" />,
+                    img: ({ node, ...props }) => (
+                      <img {...props} loading="lazy" />
+                    ),
+                    a: ({ node, ...props }) => (
+                      <a {...props} target="_blank" rel="noreferrer" />
+                    ),
                   }}
                 >
                   {previewContent}

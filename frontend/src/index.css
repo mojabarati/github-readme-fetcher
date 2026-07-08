@@ -340,7 +340,9 @@ button:disabled {
   padding: 0.4rem 0.7rem;
   border-radius: 999px;
   cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
 .mode-button.active {
