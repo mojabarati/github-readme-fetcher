@@ -23,25 +23,53 @@ const ReadmeFetcher = () => {
     };
 
     return (
-        <div>
-            <h1>GitHub README Fetcher</h1>
-            <input
-                type="text"
-                value={url}
-                onChange={(e) => setUrl(e.target.value)}
-                placeholder="Enter GitHub repository URL"
-            />
-            <button onClick={handleFetchReadme} disabled={loading}>
-                {loading ? 'Fetching...' : 'Fetch README'}
-            </button>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            <textarea
-                value={content}
-                readOnly
-                rows={10}
-                cols={50}
-                placeholder="README content will appear here..."
-            />
+        <div className="fetcher-shell">
+            <div className="bg-orb orb-one" />
+            <div className="bg-orb orb-two" />
+            <div className="hero-card">
+                <div className="hero-copy">
+                    <p className="eyebrow">GitHub Explorer</p>
+                    <h1>Fetch any repository README in seconds</h1>
+                    <p className="subtitle">
+                        Paste a repository URL and preview the README content instantly.
+                    </p>
+                </div>
+
+                <div className="input-panel">
+                    <label className="input-label" htmlFor="repo-url">
+                        Repository URL
+                    </label>
+                    <div className="input-row">
+                        <input
+                            id="repo-url"
+                            type="text"
+                            value={url}
+                            onChange={(e) => setUrl(e.target.value)}
+                            placeholder="https://github.com/owner/repository"
+                        />
+                        <button onClick={handleFetchReadme} disabled={loading}>
+                            {loading ? 'Fetching...' : 'Fetch README'}
+                        </button>
+                    </div>
+
+                    {error && <p className="error-message">{error}</p>}
+
+                    <div className="result-card">
+                        <div className="result-header">
+                            <span>README Preview</span>
+                            <span className={`status-pill ${content ? 'ready' : 'idle'}`}>
+                                {content ? 'Ready' : 'Waiting'}
+                            </span>
+                        </div>
+                        <textarea
+                            value={content}
+                            readOnly
+                            rows={14}
+                            placeholder="README content will appear here..."
+                        />
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
